@@ -36,11 +36,14 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CRIPTOGRAFIA.cs" />
+    <Compile Include="SLogic\CRIPTOGRAFIA.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System.Windows" />
     <Reference Include="System.Windows.Forms" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="SEntity\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
