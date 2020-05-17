@@ -11,13 +11,20 @@ using System.Data.SqlClient;
 
 namespace DAL
 {
-    class ACCESODB:IACCESODB
+    public class ACCESODB<T> where T: IACCESODB
     {
 
-        #region Constructor
-        public ACCESODB() { }
+        #region Singleton
 
-        #endregion Constructor
+        private ACCESODB() { }
+
+        private static readonly ACCESODB<T> _instancia = new ACCESODB<T>();
+        public static ACCESODB<T> ObtenerInstancia
+        {
+            get { return _instancia; }
+        }
+
+        #endregion Singleton
 
         #region Conexion
         //generamos una coneccion del tipo SQLserver
@@ -48,7 +55,7 @@ namespace DAL
 
         #region Interaccion con la BD de SQLSERVER
 
-        DataTable IACCESODB.Leer(string procedimiento, IDbDataParameter[] parametros)
+        public DataTable Leer(string procedimiento, IDbDataParameter[] parametros)
         {
             DataTable tabla = new DataTable();
             SqlDataAdapter DA = new SqlDataAdapter();
@@ -73,7 +80,7 @@ namespace DAL
             return tabla;
         }
 
-        int IACCESODB.Escribir(string procedimiento, IDbDataParameter[] parametros)
+        public int Escribir(string procedimiento, IDbDataParameter[] parametros)
         {
             SqlCommand cmd = new SqlCommand();
             cmd.CommandText = procedimiento;
@@ -98,7 +105,7 @@ namespace DAL
 
         #region Parametros para SQLSERVER
 
-        IDbDataParameter IACCESODB.CrearParametro(string nombre, string valor)
+        public IDbDataParameter CrearParametro(string nombre, string valor)
         {
             SqlParameter p = new SqlParameter();
             p.ParameterName = "@" + nombre;
@@ -107,7 +114,7 @@ namespace DAL
             return p;
         }
 
-        IDbDataParameter IACCESODB.CrearParametro(string nombre, int valor)
+        public IDbDataParameter CrearParametro(string nombre, int valor)
         {
             SqlParameter p = new SqlParameter();
             p.ParameterName = "@" + nombre;
@@ -117,5 +124,6 @@ namespace DAL
         }
 
         #endregion Parametros para SQLSERVER
+
     }
 }
