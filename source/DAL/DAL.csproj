@@ -38,6 +38,8 @@
   <ItemGroup>
     <Compile Include="ACCESODB.cs" />
     <Compile Include="IACCESODB.cs" />
+    <Compile Include="SL\MUSUARIO.cs" />
+    <Compile Include="SL\MPERMISO.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Microsoft.SqlServer.ManagedConnections, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL" />
@@ -47,6 +49,15 @@
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Connected Services\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="BLL\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\SLE\SLE.csproj">
+      <Project>{fecf4f48-eb12-4b09-a346-146f3c08b3a6}</Project>
+      <Name>SLE</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

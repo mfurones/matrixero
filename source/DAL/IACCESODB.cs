@@ -11,7 +11,7 @@ using System.Data;
 namespace DAL
 {
     //interfaz de accesos para unificar los metodos e independizar la implementacion segun el motor de BD que utilice
-    interface IACCESODB
+    public interface IACCESODB
     {
         //metodo para realizar una lectura
         DataTable Leer(string procedimiento, IDbDataParameter[] parametros);

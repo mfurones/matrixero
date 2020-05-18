@@ -9,17 +9,18 @@ using System.Windows.Forms;
 
 namespace SL
 {
-    class CRIPTOGRAFIA
+    public class CRIPTOGRAFIA
     {
         #region Singleton
-        static private CRIPTOGRAFIA _instancia = new CRIPTOGRAFIA();
-
-        static public CRIPTOGRAFIA ObtenerInstancia()
-        {
-            return _instancia;
-        }
 
         private CRIPTOGRAFIA() { }
+
+        private static readonly CRIPTOGRAFIA _instancia = new CRIPTOGRAFIA();
+        public static CRIPTOGRAFIA ObtenerInstancia
+        {
+            get { return _instancia; }
+        }
+
         #endregion Singleton
 
         #region Properties
