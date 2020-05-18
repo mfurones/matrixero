@@ -37,6 +37,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="APATENTE.cs" />
+    <Compile Include="USUARIO.cs" />
+    <Compile Include="IDIOMA.cs" />
     <Compile Include="FAMILIA.cs" />
     <Compile Include="PATENTE.cs" />
     <Compile Include="PATENTEGRUPO.cs" />

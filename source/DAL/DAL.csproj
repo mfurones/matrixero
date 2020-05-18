@@ -38,7 +38,8 @@
   <ItemGroup>
     <Compile Include="ACCESODB.cs" />
     <Compile Include="IACCESODB.cs" />
-    <Compile Include="SL\MPERMISOS.cs" />
+    <Compile Include="SL\MUSUARIO.cs" />
+    <Compile Include="SL\MPERMISO.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Microsoft.SqlServer.ManagedConnections, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL" />

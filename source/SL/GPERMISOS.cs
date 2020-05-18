@@ -16,7 +16,7 @@ namespace SL
         private GPERMISOS() { }
 
         private static readonly GPERMISOS _instancia = new GPERMISOS();
-        public static GPERMISOS ObtenerInstancia
+        public static GPERMISOS Instancia
         {
             get { return _instancia; }
         }

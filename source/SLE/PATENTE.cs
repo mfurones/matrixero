@@ -10,10 +10,6 @@ namespace SLE
 {
     public class PATENTE : APATENTE
     {
-        #region Constructor
-        public PATENTE() { }
-
-        #endregion Constructor
 
         #region Properties
 

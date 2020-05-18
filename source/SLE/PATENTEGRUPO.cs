@@ -11,10 +11,6 @@ namespace SLE
 {
     public class PATENTEGRUPO : APATENTE
     {
-        #region Constructor
-        public PATENTEGRUPO() { }
-
-        #endregion Constructor
 
         #region Properties
 

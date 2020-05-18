@@ -11,10 +11,6 @@ namespace SLE
 {
     public abstract class APATENTE
     {
-        #region Constructor
-        public APATENTE() { }
-
-        #endregion Constructor
 
         #region Properties
         private string _nombre;
@@ -39,9 +35,6 @@ namespace SLE
         public abstract void mostrarTV(ref System.Windows.Forms.TreeNodeCollection padres, string nombre = null);
 
         #endregion Metodos
-
-
-
 
     }
 }

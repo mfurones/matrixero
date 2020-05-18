@@ -19,7 +19,7 @@ namespace DAL
         private ACCESODB() { }
 
         private static readonly ACCESODB<T> _instancia = new ACCESODB<T>();
-        public static ACCESODB<T> ObtenerInstancia
+        public static ACCESODB<T> Instancia
         {
             get { return _instancia; }
         }
