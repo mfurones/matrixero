@@ -14,7 +14,7 @@ namespace SLE
         #region Properties
 
         private string _formulario;
-        public string formulario {
+        public string Formulario {
             get { return _formulario; }
             set { _formulario = value; }
         }
@@ -23,15 +23,15 @@ namespace SLE
 
         #region Metodos
 
-        public override ToolStripMenuItem mostrarMS(ref MenuStrip menu)
+        public override ToolStripMenuItem MostrarMS(ref MenuStrip menu)
         {
             ToolStripMenuItem tsmi = new ToolStripMenuItem();
-            tsmi.Text = this.nombre;
-            tsmi.Tag = this.formulario;
+            tsmi.Text = this.Nombre;
+            tsmi.Tag = this.Formulario;
             return tsmi;
         }
 
-        public override void mostrarTV(ref TreeNodeCollection padres, string nombre = null)
+        public override void MostrarTV(ref TreeNodeCollection padres, string nombre = null)
         {
             foreach (System.Windows.Forms.TreeNode padre in padres)
             {

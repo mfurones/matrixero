@@ -38,6 +38,7 @@
   <ItemGroup>
     <Compile Include="ACCESODB.cs" />
     <Compile Include="IACCESODB.cs" />
+    <Compile Include="IMAPPER.cs" />
     <Compile Include="SL\MUSUARIO.cs" />
     <Compile Include="SL\MPERMISO.cs" />
   </ItemGroup>

@@ -21,7 +21,7 @@ namespace DAL.SL
 
         private MPERMISO() { }
 
-        private static readonly MPERMISO _instancia = new MPERMISO();
+        protected static readonly MPERMISO _instancia = new MPERMISO();
         public static MPERMISO Instancia
         {
             get { return _instancia; }
@@ -31,7 +31,7 @@ namespace DAL.SL
 
         #region Familia
 
-        public int CrearFamilia(FAMILIA familia)
+        public int AgregarFamilia(FAMILIA familia)
         {
             IDbDataParameter[] p = new IDbDataParameter[0];
             p[0] = ACCESODB<IACCESODB>.Instancia.CrearParametro("Nombre", familia.nombre);
@@ -45,17 +45,17 @@ namespace DAL.SL
             return ACCESODB<IACCESODB>.Instancia.Escribir("Familia_Eliminar", p);
         }
 
-        public FAMILIA ObtenerFamilia(int IDfamilia)
+        public FAMILIA ObtenerObjetoFamilia(FAMILIA familia)
         {
             IDbDataParameter[] p = new IDbDataParameter[0];
-            p[0] = ACCESODB<IACCESODB>.Instancia.CrearParametro("IDFAM", IDfamilia);
+            p[0] = ACCESODB<IACCESODB>.Instancia.CrearParametro("IDFAM", familia.ID);
             DataTable dt = ACCESODB<IACCESODB>.Instancia.Leer("Familia_Obtener", p);
             DataRow dr = dt.Rows[0];
-            FAMILIA familia = new FAMILIA() { ID = (int)dr["Id_Familia"], nombre = (string)dr["nombre"] };
-            return familia;
+            FAMILIA fam = new FAMILIA() { ID = (int)dr["Id_Familia"], nombre = (string)dr["nombre"] };
+            return fam;
         }
 
-        public List<FAMILIA> ListarFamilia()
+        public List<FAMILIA> ListarTodosFamilia()
         {
             DataTable dt = ACCESODB<IACCESODB>.Instancia.Leer("Familia_Listar", null);
             if (dt.Rows.Count > 0)
@@ -71,23 +71,23 @@ namespace DAL.SL
             else { return null; }
         }
 
-        public int EliminarFamiliaPatente(int IDfamilia)
+        public int EliminarFamiliaPatente(FAMILIA familia)
         {
             IDbDataParameter[] p = new IDbDataParameter[0];
-            p[0] = ACCESODB<IACCESODB>.Instancia.CrearParametro("ID_Fam", IDfamilia);
+            p[0] = ACCESODB<IACCESODB>.Instancia.CrearParametro("ID_Fam", familia.ID);
             return ACCESODB<IACCESODB>.Instancia.Escribir("FamiliaPatente_BorrarPorFamilia", p);
         }
 
-        public int ModificarFamiliaPatente( List<APATENTE> listaPatentes, int IDfamilia)
+        public int ModificarFamiliaPatente( List<APATENTE> listaPatentes, FAMILIA familia)
         {
             //primero borro todas filas de la familia
-            this.EliminarFamiliaPatente(IDfamilia);
+            this.EliminarFamiliaPatente(familia);
             //ahora cargo todas las patentes para esa familia, de esta forma tambien me sirve para nuevas familias.
             int flag = 1;
             foreach (APATENTE patente in listaPatentes)
             {
                 IDbDataParameter[] p = new IDbDataParameter[1];
-                p[0] = ACCESODB<IACCESODB>.Instancia.CrearParametro("ID_Fam", IDfamilia);
+                p[0] = ACCESODB<IACCESODB>.Instancia.CrearParametro("ID_Fam", familia.ID);
                 p[0] = ACCESODB<IACCESODB>.Instancia.CrearParametro("@ID_Pat", patente.ID);
                 int f = ACCESODB<IACCESODB>.Instancia.Escribir("FamiliaPatente_Nueva", p);
                 if (f < 0) { flag = -1; }
@@ -99,7 +99,7 @@ namespace DAL.SL
 
         #region Patente
 
-        public APATENTE ArmarEstructuraPatentes(DataTable dt)
+        public APATENTE ArmarEstructuraPatente(DataTable dt)
         {
             //agrupa todos los permisos para esta familia.
             PATENTEGRUPO PActuales = new PATENTEGRUPO();
@@ -107,7 +107,7 @@ namespace DAL.SL
             {
                 if (DBNull.Value.Equals((int)dr["padre"]))
                 {
-                    PATENTEGRUPO pg = new PATENTEGRUPO { ID = (int)dr["id_patente"], nombre = (string)dr["nombre"] };
+                    PATENTEGRUPO pg = new PATENTEGRUPO { ID = (int)dr["id_patente"], Nombre = (string)dr["nombre"] };
                     PActuales.listaPatentes.Add(pg);
                 }
             }
@@ -118,7 +118,7 @@ namespace DAL.SL
                     //pregunto si tiene padre y si el padre es igual al que estoy recorriendo.
                     if (!DBNull.Value.Equals((int)dr["padre"]) && (pa.ID == (int)dr["padre"]))
                     {
-                        PATENTE patente = new PATENTE { ID = (int)dr["Id_Patente"], nombre = (string)dr["nombre"], formulario = (string)dr["formulario"].ToString() };
+                        PATENTE patente = new PATENTE { ID = (int)dr["Id_Patente"], Nombre = (string)dr["nombre"], Formulario = (string)dr["formulario"].ToString() };
                         pa.listaPatentes.Add(patente);
                     }
                 }
@@ -126,18 +126,18 @@ namespace DAL.SL
             return PActuales;
         }
 
-        public APATENTE ObtenerPatente(int IDfamilia)
+        public APATENTE ObtenerObjetoPatente(FAMILIA familia)
         {
             IDbDataParameter[] p = new IDbDataParameter[0];
-            p[0] = ACCESODB<IACCESODB>.Instancia.CrearParametro("IDFamilia", IDfamilia);
+            p[0] = ACCESODB<IACCESODB>.Instancia.CrearParametro("IDFamilia", familia.ID);
             DataTable dt = ACCESODB<IACCESODB>.Instancia.Leer("PatentesPorFamilia", p);
-            return this.ArmarEstructuraPatentes(dt);
+            return this.ArmarEstructuraPatente(dt);
         }
 
-        public APATENTE ListarPatentes()
+        public APATENTE ListarTodosPatente()
         {
             DataTable dt = ACCESODB<IACCESODB>.Instancia.Leer("Patentes_Listar", null);
-            return this.ArmarEstructuraPatentes(dt);
+            return this.ArmarEstructuraPatente(dt);
         }
 
         #endregion Patente

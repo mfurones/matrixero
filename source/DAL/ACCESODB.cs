@@ -11,14 +11,14 @@ using System.Data.SqlClient;
 
 namespace DAL
 {
-    public class ACCESODB<T> where T: IACCESODB
+    public class ACCESODB : IACCESODB
     {
 
         #region Singleton
 
         private ACCESODB() { }
 
-        private static readonly ACCESODB<T> _instancia = new ACCESODB<T>();
+        protected static readonly ACCESODB<T> _instancia = new ACCESODB<T>();
         public static ACCESODB<T> Instancia
         {
             get { return _instancia; }

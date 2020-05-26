@@ -15,8 +15,8 @@ namespace SL
 
         private CRIPTOGRAFIA() { }
 
-        private static readonly CRIPTOGRAFIA _instancia = new CRIPTOGRAFIA();
-        public static CRIPTOGRAFIA ObtenerInstancia
+        protected static readonly CRIPTOGRAFIA _instancia = new CRIPTOGRAFIA();
+        public static CRIPTOGRAFIA Instancia
         {
             get { return _instancia; }
         }
