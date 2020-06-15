@@ -39,6 +39,10 @@
     <Compile Include="ACCESODB.cs" />
     <Compile Include="IACCESODB.cs" />
     <Compile Include="IMAPPER.cs" />
+    <Compile Include="SL\MFAMILIA.cs" />
+    <Compile Include="SL\MIDIOMA.cs" />
+    <Compile Include="SL\MLEYENDA.cs" />
+    <Compile Include="SL\MPATENTE.cs" />
     <Compile Include="SL\MUSUARIO.cs" />
     <Compile Include="SL\MPERMISO.cs" />
   </ItemGroup>

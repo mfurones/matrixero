@@ -37,10 +37,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="GFAMILIA.cs" />
     <Compile Include="GPATENTE.cs" />
     <Compile Include="GSESION.cs" />
     <Compile Include="GUSUARIO.cs" />
-    <Compile Include="GFAMILIA.cs" />
     <Compile Include="CRIPTOGRAFIA.cs" />
     <Compile Include="IGESTOR.cs" />
     <Compile Include="IOBSERVADO.cs" />

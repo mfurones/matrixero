@@ -28,46 +28,36 @@ namespace DAL.SL
 
         #endregion Singleton
 
-        private int MappearParametros(string procedimiento, USUARIO usuario)
-        {
-            IDbDataParameter[] p = new IDbDataParameter[5];
-            p[0] = ACCESODB<IACCESODB>.Instancia.CrearParametro("nombre", usuario.Nombre);
-            p[1] = ACCESODB<IACCESODB>.Instancia.CrearParametro("apellido", usuario.Apellido);
-            p[2] = ACCESODB<IACCESODB>.Instancia.CrearParametro("usuario", usuario.Usuario);
-            p[3] = ACCESODB<IACCESODB>.Instancia.CrearParametro("contraseña", usuario.Contraseña);
-            p[4] = ACCESODB<IACCESODB>.Instancia.CrearParametro("familia", usuario.Familia.ID);
-            // falta definir idioma
-            //p[5] = ACCESODB<IACCESODB>.Instancia.CrearParametro("idioma", usuario.Idioma);
-            return ACCESODB<IACCESODB>.Instancia.Escribir(procedimiento, p);
-        }
+        #region IMAPPER
 
         public int Agregar(USUARIO Elemento)
         {
-            return this.MappearParametros("Familia_crear", Elemento);
+            return this.MappearParametros("Usuario_agregar", Elemento);
         }
 
         public int Modificar(USUARIO Elemento)
         {
-            return this.MappearParametros("Familia_modificar", Elemento);
+            return this.MappearParametros("Usuario_modificar", Elemento);
         }
 
         public int Eliminar(USUARIO Elemento)
         {
             IDbDataParameter[] p = new IDbDataParameter[0];
-            p[0] = ACCESODB<IACCESODB>.Instancia.CrearParametro("usuario", Elemento.Usuario);
-            return ACCESODB<IACCESODB>.Instancia.Escribir("Familia_eliminar", p);
+            p[0] = ACCESODB.Instancia.CrearParametro("usuario", Elemento.Usuario);
+            return ACCESODB.Instancia.Escribir("Usuario_eliminar", p);
         }
 
         public List<USUARIO> ListarTodos()
         {
-            DataTable dt = ACCESODB<IACCESODB>.Instancia.Leer("Usuario_Listar", null);
+            DataTable dt = ACCESODB.Instancia.Leer("Usuario_ListarTodos", null);
             if (dt.Rows.Count > 0)
             {
                 List<USUARIO> ls = new List<USUARIO>();
                 foreach (DataRow dr in dt.Rows)
                 {
-                    //agregar idioma
-                    USUARIO u = new USUARIO() { Nombre = (string)dr["nombre"], Apellido = (string)dr["apellido"], Usuario = (string)dr["usuario"], Contraseña = (string)dr["contraseña"], Familia = MPERMISO.Instancia.ObtenerFamilia((int)dr["familia"]), Idioma = null };
+                    IDIOMA i = MIDIOMA.Instancia.ObtenerObjeto(new IDIOMA { Codigo = (string)dr["idioma_codigo"] });
+                    FAMILIA f = MPERMISO.Instancia.ObtenerObjetoFamilia(new FAMILIA { ID = (int)dr["ID_familia"] });
+                    USUARIO u = new USUARIO() { Nombre = (string)dr["nombre"], Apellido = (string)dr["apellido"], Usuario = (string)dr["usuario"], Contraseña = (string)dr["contraseña"], Familia = f, Idioma = i };
                     ls.Add(u);
                 }
                 return ls;
@@ -78,13 +68,14 @@ namespace DAL.SL
         public USUARIO ObtenerObjeto(USUARIO Elemento)
         {
             IDbDataParameter[] p = new IDbDataParameter[0];
-            p[0] = ACCESODB<IACCESODB>.Instancia.CrearParametro("usuario", Elemento.Usuario);
-            DataTable dt = ACCESODB<IACCESODB>.Instancia.Leer("Usuario_Obtener", p);
+            p[0] = ACCESODB.Instancia.CrearParametro("usuario", Elemento.Usuario);
+            DataTable dt = ACCESODB.Instancia.Leer("Usuario_ObtenerObjeto", p);
             if (dt != null)
             {
                 DataRow dr = dt.Rows[0];
-                //agregar idioma
-                return new USUARIO() { Nombre = (string)dr["nombre"], Apellido = (string)dr["apellido"], Usuario = (string)dr["usuario"], Contraseña = (string)dr["contraseña"], Familia = MPERMISO.Instancia.ObtenerFamilia((int)dr["familia"]), Idioma = null };
+                IDIOMA i = MIDIOMA.Instancia.ObtenerObjeto(new IDIOMA { Codigo = (string)dr["idioma_codigo"] });
+                FAMILIA f = MPERMISO.Instancia.ObtenerObjetoFamilia(new FAMILIA { ID = (int)dr["ID_familia"] });
+                return new USUARIO() { Nombre = (string)dr["nombre"], Apellido = (string)dr["apellido"], Usuario = (string)dr["usuario"], Contraseña = (string)dr["contraseña"], Familia = f, Idioma = i };
             }
             else
             {
@@ -92,5 +83,24 @@ namespace DAL.SL
             }
 
         }
+
+        #endregion IMAPPERI
+
+        #region Metodos
+
+        private int MappearParametros(string procedimiento, USUARIO usuario)
+        {
+            IDbDataParameter[] p = new IDbDataParameter[5];
+            p[0] = ACCESODB.Instancia.CrearParametro("nombre", usuario.Nombre);
+            p[1] = ACCESODB.Instancia.CrearParametro("apellido", usuario.Apellido);
+            p[2] = ACCESODB.Instancia.CrearParametro("usuario", usuario.Usuario);
+            p[3] = ACCESODB.Instancia.CrearParametro("contraseña", usuario.Contraseña);
+            p[4] = ACCESODB.Instancia.CrearParametro("familia", usuario.Familia.ID);
+            p[5] = ACCESODB.Instancia.CrearParametro("codigo", usuario.Idioma.Codigo);
+            return ACCESODB.Instancia.Escribir(procedimiento, p);
+        }
+
+        #endregion Metodos
+
     }
 }
