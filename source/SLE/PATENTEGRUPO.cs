@@ -19,27 +19,28 @@ namespace SLE
             get { return _listaPatentes; }
             set { _listaPatentes = value; }
         }
+        
         #endregion Properties
 
         #region Metodos
 
-        public override ToolStripMenuItem mostrarMS(ref MenuStrip menu)
+        public override ToolStripMenuItem MostrarMS(ref MenuStrip menu)
         {
             System.Windows.Forms.ToolStripMenuItem tsmi = new ToolStripMenuItem();
-            tsmi.Text = this.nombre;
+            tsmi.Text = this.Nombre;
             if (tsmi.Text != null)
             {
-                tsmi.Tag = this.nombre.Trim().ToUpper().Substring(0, 8);
+                tsmi.Tag = this.Nombre.Trim().ToUpper().Substring(0, 8);
             }
-            foreach (SLE p in _listaPatentes)
+            foreach (APATENTE p in _listaPatentes)
             {
                 if (tsmi.Text == "")
                 {
-                    p.mostrarMS(ref menu);
+                    p.MostrarMS(ref menu);
                 }
                 else
                 {
-                    tsmi.DropDownItems.Add(p.mostrarMS(ref menu));
+                    tsmi.DropDownItems.Add(p.MostrarMS(ref menu));
                 }
             }
             if (tsmi.Text != null)
@@ -51,18 +52,18 @@ namespace SLE
             //cuando es grupo con agregar el item al menu alcanza
         }
 
-        public override void mostrarTV(ref TreeNodeCollection padres, string nombre = null)
+        public override void MostrarTV(ref TreeNodeCollection padres, string nombre = null)
         {
-            if (this.nombre != "")
+            if (this.Nombre != "")
             {
                 System.Windows.Forms.TreeNode node = new System.Windows.Forms.TreeNode();
-                node.Text = this.nombre;
+                node.Text = this.Nombre;
                 node.Tag = this.ID;
                 padres.Add(node);
             }
-            foreach (SLE p in _listaPatentes)
+            foreach (APATENTE p in _listaPatentes)
             {
-                p.mostrarTV(ref padres, this.nombre);
+                p.MostrarTV(ref padres, this.Nombre);
             }
         }
 

@@ -37,6 +37,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="APATENTE.cs" />
+    <Compile Include="LEYENDA.cs" />
     <Compile Include="USUARIO.cs" />
     <Compile Include="IDIOMA.cs" />
     <Compile Include="FAMILIA.cs" />
@@ -44,6 +45,8 @@
     <Compile Include="PATENTEGRUPO.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Windows" />
     <Reference Include="System.Windows.Forms" />
   </ItemGroup>

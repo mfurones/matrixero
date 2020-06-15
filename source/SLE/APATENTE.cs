@@ -14,7 +14,7 @@ namespace SLE
 
         #region Properties
         private string _nombre;
-        public string nombre {
+        public string Nombre {
             get { return _nombre; }
             set { _nombre = value; }
         }
@@ -27,12 +27,11 @@ namespace SLE
 
         #endregion Properties
 
-
         #region Metodos
 
-        public abstract System.Windows.Forms.ToolStripMenuItem mostrarMS(ref System.Windows.Forms.MenuStrip menu);
+        public abstract System.Windows.Forms.ToolStripMenuItem MostrarMS(ref System.Windows.Forms.MenuStrip menu);
 
-        public abstract void mostrarTV(ref System.Windows.Forms.TreeNodeCollection padres, string nombre = null);
+        public abstract void MostrarTV(ref System.Windows.Forms.TreeNodeCollection padres, string nombre = null);
 
         #endregion Metodos
 
